@@ -21,5 +21,31 @@ target_include_directories(screen PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
 target_include_directories(screen PUBLIC libs/sdl/include)
 target_link_directories(screen PUBLIC libs/sdl)
 target_link_libraries(screen PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
-
+#
+#
+#--------------------------------------------------------------------
+add_library(particle
+            Particle/Particle.h
+            Particle/Particle.cpp)
+#
+target_include_directories(particle PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+#
+target_include_directories(particle PUBLIC libs/sdl/include)
+target_link_directories(particle PUBLIC libs/sdl)
+target_link_libraries(particle PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
+#
+#
+#--------------------------------------------------------------------
+add_library(swarm
+            Swarm/Swarm.h
+            Swarm/Swarm.cpp)
+#
+target_include_directories(swarm PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
+#
+target_include_directories(swarm PUBLIC libs/sdl/include)
+target_link_directories(swarm PUBLIC libs/sdl)
+target_link_libraries(swarm PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
+#
+target_link_libraries(swarm PUBLIC particle)
+#
 #--------------------------------------------------------------------

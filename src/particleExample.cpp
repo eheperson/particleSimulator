@@ -3,13 +3,13 @@
 #include<time.h>
 
 #include<Screen/Screen.h> 
-// #include<Swarm/Swarm.h>
+#include<Swarm/Swarm.h>
 
 
 /**/
 using namespace std;
 using namespace particleScreen;
-// using namespace particleSimulator;
+using namespace particleSimulator;
 /**/
 int main(int argc, char* argv[]){
 
@@ -17,23 +17,23 @@ int main(int argc, char* argv[]){
 
     Screen screen;
 
-    // if( screen.init() == false){
-    //     cout << " Error at initializing SDL !!" << endl;
-    // };
+    if( screen.init() == false){
+        cout << " Error at initializing SDL !!" << endl;
+    };
 
-    // Swarm swarm;
+    Swarm swarm;
     while (true){
-    //     // Update Particles
-    //     //Draw Particles
-    //     const Particle* const pParticles = swarm.getParticles();
-    //     for(int i = 0; i<Swarm::N_PARTICLES; i++){
-    //         Particle particle = pParticles[i];
-    //         /**/
-    //         int x = (particle.getParticleX() + 1)*Screen::SCREEN_WIDTH/2;
-    //         int y = (particle.getParticleY() + 1)*Screen::SCREEN_HEIGHT/2;
-    //         /**/
-    //         screen.setPixel(x, y, 255, 255, 255);
-    //     }
+        // Update Particles
+        //Draw Particles
+        const Particle* const pParticles = swarm.getParticles();
+        for(int i = 0; i<Swarm::N_PARTICLES; i++){
+            Particle particle = pParticles[i];
+            /**/
+            int x = (particle.getParticleX() + 1)*Screen::SCREEN_WIDTH/2;
+            int y = (particle.getParticleY() + 1)*Screen::SCREEN_HEIGHT/2;
+            /**/
+            screen.setPixel(x, y, 255, 255, 255);
+        }
         /*
         int elapsed = SDL_GetTicks();
         //double green = (1 + sin(elapsed*0.001))*128;

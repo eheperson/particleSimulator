@@ -10,13 +10,23 @@ project(ehe)
 add_executable(eheApp src/test.cpp)
 add_executable(sdlTest src/main.cpp)
 add_executable(colorAnimator src/colorAnimator.cpp)
+add_executable(particleExample src/particleExample.cpp)
 #
 #
 #--------------------------------------------------------------------
 add_subdirectory (src)
+#
 target_link_libraries(eheApp PUBLIC ehe-lib)
+#
 target_link_libraries(sdlTest PUBLIC screen )
-target_link_libraries(colorAnimator PUBLIC screen )
+#
+target_link_libraries(colorAnimator PUBLIC screen)
+target_link_libraries(colorAnimator PUBLIC particle)
+target_link_libraries(colorAnimator PUBLIC swarm)
+#
+target_link_libraries(particleExample PUBLIC screen)
+target_link_libraries(particleExample PUBLIC particle)
+target_link_libraries(particleExample PUBLIC swarm)
 # target_link_libraries(eheApp )
 #
 #
@@ -56,9 +66,9 @@ target_include_directories(eheApp PUBLIC libs/sdl/include)
 target_link_directories(eheApp PUBLIC libs/sdl)
 target_link_libraries(eheApp PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
 #
-target_include_directories(sdlTest PUBLIC libs/sdl/include)
-target_link_directories(sdlTest PUBLIC libs/sdl)
-target_link_libraries(sdlTest PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
+# target_include_directories(sdlTest PUBLIC libs/sdl/include)
+# target_link_directories(sdlTest PUBLIC libs/sdl)
+# target_link_libraries(sdlTest PUBLIC mingw32 SDL2main SDL2) # 'mingw32 SDL2main SDL2' order important
 #--------------------------------------------------------------------
 
 #
