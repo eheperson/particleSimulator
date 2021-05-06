@@ -9,12 +9,14 @@ project(ehe)
 #--------------------------------------------------------------------
 add_executable(eheApp src/test.cpp)
 add_executable(sdlTest src/main.cpp)
+add_executable(colorAnimator src/colorAnimator.cpp)
 #
 #
 #--------------------------------------------------------------------
 add_subdirectory (src)
 target_link_libraries(eheApp PUBLIC ehe-lib)
 target_link_libraries(sdlTest PUBLIC screen )
+target_link_libraries(colorAnimator PUBLIC screen )
 # target_link_libraries(eheApp )
 #
 #
