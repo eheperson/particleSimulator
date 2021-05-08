@@ -3,56 +3,62 @@
 #include <stdlib.h>
 #include <iostream>
 /**/
-#include "Swarm.h"
-
+#include "swarm.h"
+/**/
 namespace particleSimulator{
-      
-    Swarm :: Swarm(){
-        mParticlesPtr = new Particle[N_PARTICLES];
+    /**/
+    /*----------------------------- Constructor and Deconstructor Methods Definitions */
+    /**/
+    swarm :: swarm(){
+        particlesPtr = new particle[swarmSize];
     };
-      
-    /*----------------------------------------------------------------------------------*/
-    
-    Swarm :: ~Swarm(){
-        delete [] mParticlesPtr; // we need to use '[]', because mParticlePtr is an aray
+    /**/
+    swarm :: ~swarm(){
+        delete [] particlesPtr; // we need to use '[]', because mParticlePtr is an aray
     };
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    // const Particle * const Swarm::getParticles(){};
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Swarm :: setSpeed( double speed){
-        for(int i = 0; i <N_PARTICLES; i++){
-            mParticlesPtr[i].setXspeed(speed);
-            mParticlesPtr[i].setYspeed(speed);
+    /**/
+    /*-------------------------------------------Set Methods Definitions */
+    /**/
+    void swarm :: setvxy( double speed){
+        for(int i = 0; i <swarmSize; i++){
+            particlesPtr[i].setvx(speed);
+            particlesPtr[i].setvy(speed);
         }
     }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Swarm :: setSpeedRandom(){
-        for(int i = 0; i <N_PARTICLES; i++){
-            mParticlesPtr[i].setXspeedRandom();
-            mParticlesPtr[i].setYspeedRandom();
+    /**/
+    void swarm :: setvRandom(){
+        for(int i = 0; i <swarmSize; i++){
+            particlesPtr[i].setvxRandom();
+            particlesPtr[i].setvyRandom();
         }
     }
-       
-    /*----------------------------------------------------------------------------------*/  
-
-    void Swarm :: moveXYs(bool border = true){
+    /**/
+    /*-------------------------------------------Get Methods Definitions */
+    /**/
+    int swarm :: getSize(){
+        return swarmSize;
+    }
+    /**/
+    /**/
+    /**/    
+    /**/
+    /**/
+    /**/
+    /*-------------------------------------------Other Methods Definitions */
+    /**/
+    void swarm :: movexy(bool border = true){
+        /**/
         if(border){
-            for(int i = 0; i < N_PARTICLES; i++){
-                mParticlesPtr[i].moveXYp(true);
+            for(int i = 0; i < swarmSize; i++){
+                particlesPtr[i].movexy(true);
             }
         }
         else{
-            for(int i = 0; i < N_PARTICLES; i++){
-                mParticlesPtr[i].moveXYp(false);
+            for(int i = 0; i < swarmSize; i++){
+                particlesPtr[i].movexy(false);
             }
         }
 
     }
-
+    /**/
 } /* namespace : particleSimulator*/

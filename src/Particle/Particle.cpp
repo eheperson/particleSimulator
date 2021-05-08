@@ -2,140 +2,240 @@
 /**/
 #include <stdlib.h>
 #include <iostream>
+#include<string>
+#include<math.h>
 /**/
 #include "Particle.h"
+/**/
 
+/**/
 namespace particleSimulator{
-
-    Particle :: Particle(){
-        setParticleXrandom();
-        setParticleYrandom();
+    /**/
+    /*----------------------------- Constructor and Deconstructor Methods Definitions */
+    /**/
+    particle :: particle(){
+        setx(0);
+        sety(0);
+        setVRandom();
+        setphiRandom();
         /**/
-        setXspeedRandom();
-        setYspeedRandom();
+        calculatetheta();
+        calculater();
+        calculatevx();
+        calculatevy();
     };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    Particle :: ~Particle(){
-    };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    double Particle :: getParticleX(){
-        return mX;
-    };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    void Particle :: setParticleXrandom(){
-        mX = ((2.0 * rand())/RAND_MAX) - 1;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-
-    double Particle::getParticleY(){
-        return mY;
-    };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    void Particle :: setParticleYrandom(){
-        mY = ((2.0 * rand())/RAND_MAX) - 1;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Particle :: setXspeed(double xSpeed){
-        Particle :: xSpeed = xSpeed;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Particle :: setXspeedRandom(){
-        //Particle :: xSpeed = ((0.001 * rand())/RAND_MAX);
-        //Particle :: xSpeed = ((2.0 * rand())/RAND_MAX) - 1;
-        Particle :: xSpeed = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Particle :: setYspeedRandom(){
-        //Particle :: ySpeed = ((0.001 * rand())/RAND_MAX);
-        //Particle :: ySpeed = ((2.0 * rand())/RAND_MAX) - 1;
-        Particle :: ySpeed = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
-
-    }
-    /*----------------------------------------------------------------------------------*/  
-    
-    double Particle :: getXspeed(){
-        return Particle :: xSpeed;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    void Particle :: setYspeed(double ySpeed){
-        Particle :: ySpeed = ySpeed;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-    
-    double Particle :: getYspeed(){
-        return Particle :: ySpeed;
-    }
-
-    /*----------------------------------------------------------------------------------*/  
-
-    void Particle::moveXYp(bool border = true){
-        if(border){
-            mX += getXspeed();
-            mY += getYspeed();
+    /**/
+    particle :: particle(std::string coordinate, 
+                        double xtheta, double yr, 
+                        double vxV, double vyphi){
+        /**/
+        if(coordinate == "cartesian"){
+            setx(xtheta);
+            sety(yr);
+            setvx(vxV);
+            setvy(vyphi);
             /**/
-            if(mX < -1.0 ||  mX > 1.0){
-                xSpeed = -xSpeed;
+            calculatetheta();
+            calculater();
+            calculateV();
+            calculatephi();
+        }
+        else if(coordinate == "polar"){
+            settheta(xtheta);
+            setr(yr);
+            setV(vxV);
+            setphi(vyphi);
+            /**/
+            calculatex();
+            calculatey();
+            calculatevx();
+            calculatevy();
+        }
+        else{
+            std :: cout << "Undefined Coordinate System !!" << std :: endl;
+        }
+    };
+    /**/
+    particle :: ~particle(){
+        //
+        //
+    };
+    /**/
+    /*-------------------------------------------Set Methods Definitions */
+    /**/
+    void particle :: setx(double x){
+        particle :: x = x;
+    };
+    /**/
+    void particle :: sety(double y){
+        particle :: y = y;
+    };
+    /**/
+    void particle :: setvx(double vx){
+        particle :: vx = vx;
+    };
+    /**/
+    void particle :: setvy(double vy){
+        particle :: vy = vy;
+    };
+    /**/
+    void particle :: setV(double V){
+        particle :: V = V;
+    };
+    /**/
+    void particle :: setphi(double phi){
+        particle :: phi = phi;
+    };
+    /**/
+    void particle :: setr(double r){
+        particle :: r = r;
+    };
+    /**/
+    void particle :: settheta(double theta){
+        particle :: theta = theta;
+    };
+    /**/
+    void particle :: setxRandom(){
+        x = ((2.0 * rand())/RAND_MAX) - 1;
+    }
+    /**/
+    void particle :: setyRandom(){
+        y = ((2.0 * rand())/RAND_MAX) - 1;
+    }
+    /**/
+    void particle :: setVRandom(){
+        V = ((0.01 * rand())/RAND_MAX);
+    }
+    /**/
+    void particle :: setphiRandom(){
+         phi = ((2.0 * M_PI * rand())/RAND_MAX);
+    }
+    /**/
+    void particle :: setvxRandom(){
+        //particle :: vx = ((0.001 * rand())/RAND_MAX);
+        //particle :: vx = ((2.0 * rand())/RAND_MAX) - 1;
+        particle :: vx = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
+    }
+    /**/
+    void particle :: setvyRandom(){
+        //particle :: vy = ((0.001 * rand())/RAND_MAX);
+        //particle :: vy = ((2.0 * rand())/RAND_MAX) - 1;
+        particle :: vy = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
+
+    }
+    /**/
+    /*-------------------------------------------Get Methods Definitions */
+    /**/
+    double particle :: getx(){
+        return x;
+    };
+    /**/
+    double particle::gety(){
+        return y;
+    };
+    /**/
+    double particle :: getvx(){
+        return particle :: vx;
+    }
+    /**/
+    double particle :: getvy(){
+        return particle :: vy;
+    }
+    /**/
+    double particle :: getV(){
+        return particle :: V;
+    }
+    /**/
+    double particle :: getphi(){
+        return particle :: phi;
+    }
+    /**/
+    double particle :: getr(){
+        return particle :: r;
+    }
+    /**/
+    double particle :: gettheta(){
+        return particle :: theta;
+    }
+    /**/
+    /*-------------------------------------------Calculation Methods Definitions */
+    /**/
+    void particle :: calculatex(){
+        particle :: x = r*cos(theta);
+    };
+    /**/
+    void particle :: calculatey(){
+        particle :: y = r*sin(theta);
+    };
+    /**/
+    void particle :: calculateV(){
+        particle :: V = sqrt(vx*vx + vy*vy);
+    };
+    /**/
+    void particle :: calculatevx(){
+        particle :: vx = V*cos(phi);
+    };
+    /**/
+    void particle :: calculatevy(){
+        particle :: vy = V*sin(phi);
+    };
+    /**/
+    void particle :: calculatetheta(){
+        particle :: theta = atan(y/x);
+    };
+    /**/
+    void particle :: calculatephi(){
+
+    };
+    /**/
+    void particle :: calculater(){
+        particle :: r = sqrt(x*x + y*y);
+    };
+    /*-------------------------------------------Movement Methods Definitions */
+    /**/
+    void particle::movexy(bool border = true){
+        if(border){
+            x += getvx();
+            y += getvy();
+            /**/
+            if(x < -1.0 ||  x > 1.0){
+                vx = -vx;
             };
             /**/
-            if(mY < -1.0 ||  mY > 1.0){
-                ySpeed = -ySpeed;
+            if(y < -1.0 ||  y > 1.0){
+                vy = -vy;
             };
         }
         else{
-            mX += getXspeed();
-            mY += getYspeed();
+            x += getvx();
+            y += getvy();
         };
     };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    void Particle::moveXp(bool border = true){
+    /**/
+    void particle::movex(bool border = true){
         if(border){
-            mX += getXspeed();
+            x += getvx();
             /**/
-            if(mX < -1.0 ||  mX > 1.0){
-                xSpeed = -xSpeed;
+            if(x < -1.0 ||  x > 1.0){
+                vx = -vx;
             };
         }
         else{
-            mX += getXspeed();
+            x += getvx();
         };
     };
-
-    /*----------------------------------------------------------------------------------*/  
-
-    void Particle::moveYp(bool border = true){
+    /**/
+    void particle::movey(bool border = true){
         if(border){
-            mY += getYspeed();
+            y += getvy();
             /**/
-            if(mY < -1.0 ||  mY > 1.0){
-                ySpeed = -ySpeed;
+            if(y < -1.0 ||  y > 1.0){
+                vy = -vy;
             };
         }
         else{
-            mY += getYspeed();
+            y += getvy();
         };
     };
-
-    /*----------------------------------------------------------------------------------*/  
-
-
+    /**/
 } /* namespace : particleSimulator */

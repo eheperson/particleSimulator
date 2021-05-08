@@ -21,16 +21,16 @@ int main(int argc, char* argv[]){
         cout << " Error at initializing SDL !!" << endl;
     };
 
-    Swarm swarm;
+    swarm swarm;
     while (true){
         // Update Particles
         //Draw Particles
-        const Particle* const pParticles = swarm.getParticles();
-        for(int i = 0; i<Swarm::N_PARTICLES; i++){
-            Particle particle = pParticles[i];
+        const particle* const pParticles = swarm.getParticles();
+        for(int i = 0; i<swarm.getSize(); i++){
+            particle particle = pParticles[i];
             /**/
-            int x = (particle.getParticleX() + 1)*Screen::SCREEN_WIDTH/2;
-            int y = (particle.getParticleY() + 1)*Screen::SCREEN_HEIGHT/2;
+            int x = (particle.getx() + 1)*Screen::SCREEN_WIDTH/2;
+            int y = (particle.gety() + 1)*Screen::SCREEN_HEIGHT/2;
             /**/
             screen.setPixel(x, y, 255, 255, 255);
         }

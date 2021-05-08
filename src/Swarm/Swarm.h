@@ -5,24 +5,41 @@
 
 namespace particleSimulator{
 
-    class Swarm{
+    class swarm{
         public :
-            const static int N_PARTICLES = 1000;
-        private:
-            Particle* mParticlesPtr;
-
-        public:
-            Swarm();
-            virtual ~Swarm();
-            const Particle * const getParticles(){ return mParticlesPtr; };
-            void setSpeed(double speedC); 
-            void SetSpeedXY(double speedX, double speedY); /* Not Declared Yet*/
-            void setSpeedRandom(); 
+            static int const swarmSize=50000;
             /**/
-            void moveXYs(bool border);
-            void moveXs(bool border); /* Not Declared Yet*/
-            void moveYs(bool border); /* Not Declared Yet*/
-    };
-}  /* namespace : particleSimulator*/
-
+        private:
+            particle* particlesPtr;
+            /**/
+        public:
+            /**/
+            /* Constructor and Deconstructor declerations*/
+            /**/
+            swarm();
+            virtual ~swarm();
+            /**/
+            /* Set Methods Declerations*/
+            /**/
+            void setSize(int s);
+            void setvxy(double v); 
+            void setvx(double vx); /* Not Declared Yet*/
+            void setvy(double vy); /* Not Declared Yet*/
+            void setvRandom(); 
+            /**/
+            /* Get Methods Declerations*/
+            /**/
+            int getSize();
+            const particle * const getParticles(){ return particlesPtr; };
+            /**/
+            /* Other Methods Declerations*/
+            /**/
+            void movexy(bool border);
+            void movex(bool border); /* Not Declared Yet*/
+            void movey(bool border); /* Not Declared Yet*/
+            /**/
+    }; /* class : swarm*/
+    /**/
+}; /* namespace : particleSimulator*/
+/**/
 #endif /* SWARM_H_*/
