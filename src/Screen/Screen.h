@@ -26,6 +26,7 @@ namespace particleScreen{
             bool processEvents();
             void close();
             void update();
+            void clear();
             void setPixel(int x, int y,  Uint8 red, Uint8 green, Uint8 blue);
 
         protected : 

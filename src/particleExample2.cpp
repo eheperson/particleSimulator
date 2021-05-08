@@ -22,36 +22,25 @@ int main(int argc, char* argv[]){
     };
 
     Swarm swarm;
-    //swarm.setSpeedRandom();
     while (true){
         // Update Particles
         //Draw Particles
+        const Particle* const pParticles = swarm.getParticles();
+        //
         int elapsed = SDL_GetTicks();
-        screen.clear();
-        swarm.moveXYs(true);
         //
-        //
-        unsigned char red = (unsigned char)( (1 + sin(elapsed*0.01))*128);
-        unsigned char green = (unsigned char)( (1 + cos(elapsed*0.02))*128);
-        unsigned char blue = (unsigned char)( (1 + sin(elapsed*0.03))*128);
-        //
-        const Particle * const pParticles = swarm.getParticles();
+        unsigned char red = (unsigned char)( (1 + sin(elapsed*0.001))*128);
+        unsigned char green = (unsigned char)( (1 + cos(elapsed*0.002))*128);
+        unsigned char blue = (unsigned char)( (1 + sin(elapsed*0.003))*128);
         //
         for(int i = 0; i<Swarm::N_PARTICLES; i++){
             Particle particle = pParticles[i];
             /**/
-
-            // cout<<i<<endl;
-            
-            /**/
             int x = (particle.getParticleX() + 1)*Screen::SCREEN_WIDTH/2;
             int y = (particle.getParticleY() + 1)*Screen::SCREEN_HEIGHT/2;
             /**/
-        
             screen.setPixel(x, y, red, green, blue);
-        };
-
-        
+        }
         
 
 
@@ -70,6 +59,8 @@ int main(int argc, char* argv[]){
     };
     
     screen.close();
+    cout<<"ehe"<<endl;
+
     return 0;
 
 }

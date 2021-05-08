@@ -8,8 +8,9 @@ namespace particleScreen{
 
     // Constructor initialization list
     Screen :: Screen() : window(NULL), renderer(NULL), texture(NULL), buffer(NULL){};
-/*----------------------------------------------------------------------------------*/  
-/*----------------------------------------------------------------------------------*/  
+
+    /*----------------------------------------------------------------------------------*/  
+
     bool Screen :: init(){
             if(SDL_Init(SDL_INIT_VIDEO) < 0){
                 cout << "SDL Init Failed !" << endl;
@@ -19,7 +20,7 @@ namespace particleScreen{
                 cout << "SDL Init Succeed !" << endl;
             }
             /**/
-            window = SDL_CreateWindow("Particle Fire Simulation",
+            window = SDL_CreateWindow("Particle Animation",
                                                 SDL_WINDOWPOS_UNDEFINED,
                                                 SDL_WINDOWPOS_UNDEFINED,
                                                 SCREEN_WIDTH,
@@ -72,8 +73,9 @@ namespace particleScreen{
 
             return true;
     };
-/*----------------------------------------------------------------------------------*/  
-/*----------------------------------------------------------------------------------*/    
+    
+    /*----------------------------------------------------------------------------------*/
+
     bool Screen :: processEvents(){
         SDL_Event event;
         /**/
@@ -84,8 +86,9 @@ namespace particleScreen{
         };       
         return true;
     };
-/*----------------------------------------------------------------------------------*/  
-/*----------------------------------------------------------------------------------*/  
+    
+    /*----------------------------------------------------------------------------------*/  
+
     void Screen :: close(){
         delete [] buffer;
         /**/
@@ -94,19 +97,21 @@ namespace particleScreen{
         SDL_DestroyWindow(window);
         SDL_Quit();
     };
-/*----------------------------------------------------------------------------------*/  
-/*----------------------------------------------------------------------------------*/  
+     
+    /*----------------------------------------------------------------------------------*/ 
+
     void Screen :: update(){
         SDL_UpdateTexture(texture, NULL, buffer, SCREEN_WIDTH*sizeof(Uint32));
         SDL_RenderClear(renderer);
         SDL_RenderCopy(renderer, texture, NULL, NULL);
         SDL_RenderPresent(renderer);
     }
-/*----------------------------------------------------------------------------------*/  
-/*----------------------------------------------------------------------------------*/  
+    
+    /*----------------------------------------------------------------------------------*/  
+
     void Screen :: setPixel(int x, int y,  Uint8 red, Uint8 green, Uint8 blue){
         /**/
-        if(x < 0 || x>= SCREEN_WIDTH || y<0 || y>SCREEN_HEIGHT){
+        if(x < 0 || x>= SCREEN_WIDTH || y<0 || y>=SCREEN_HEIGHT){
             return;
         }
         /**/
@@ -123,4 +128,11 @@ namespace particleScreen{
         buffer[(y * SCREEN_WIDTH) + x] = color;
     };
 
-}
+    /*----------------------------------------------------------------------------------*/  
+
+    void Screen :: clear(){
+        memset(buffer, 0 , SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
+    }
+} /* namespace : particleScreen */
+
+

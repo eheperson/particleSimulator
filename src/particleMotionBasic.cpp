@@ -22,12 +22,11 @@ int main(int argc, char* argv[]){
     };
 
     Swarm swarm;
-    //swarm.setSpeedRandom();
+    swarm.setSpeed(0.01);
     while (true){
         // Update Particles
         //Draw Particles
         int elapsed = SDL_GetTicks();
-        screen.clear();
         swarm.moveXYs(true);
         //
         //
