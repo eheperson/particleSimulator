@@ -7,7 +7,7 @@ using namespace std;
 namespace particleScreen{
 
     // Constructor initialization list
-    Screen :: Screen() : window(NULL), renderer(NULL), texture(NULL), buffer(NULL){};
+    Screen :: Screen() : window(NULL), renderer(NULL), texture(NULL), buffer(NULL), buffer2(NULL){};
 
     /*----------------------------------------------------------------------------------*/  
 
@@ -58,8 +58,12 @@ namespace particleScreen{
             }
             /**/
             buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+            buffer2 = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+            /**/
             memset(buffer, 0, SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
-/*            
+            memset(buffer2, 0, SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
+
+/*          
             // to access one pixel on window 
             buffer[30000] = 0xFFFFFFFF;
 
@@ -91,6 +95,7 @@ namespace particleScreen{
 
     void Screen :: close(){
         delete [] buffer;
+        delete [] buffer2;
         /**/
         SDL_DestroyRenderer(renderer);
         SDL_DestroyTexture(texture);
@@ -116,7 +121,7 @@ namespace particleScreen{
         }
         /**/
         Uint32 color = 0; 
-        /**/
+        /* RGB */
         color += red;   //add red channel
         color <<= 8;    //bitshifting - 8bit
         color += green; //add green clannel
@@ -132,6 +137,54 @@ namespace particleScreen{
 
     void Screen :: clear(){
         memset(buffer, 0 , SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
+        memset(buffer2, 0 , SCREEN_WIDTH*SCREEN_HEIGHT*sizeof(Uint32));
+    }
+
+    /*----------------------------------------------------------------------------------*/
+
+    void Screen :: blur(){
+        Uint32* temp = buffer;
+        buffer = buffer2;
+        buffer2 = temp;
+        /**/
+        for(int y = 0; y<SCREEN_HEIGHT; y++){
+            for(int x = 0; x<SCREEN_WIDTH; x++){
+                /*
+                    0 0 0
+                    0 1 0
+                    0 0 0
+                */
+               /**/
+               int redTotal = 0;
+               int greenTotal = 0;
+               int blueTotal = 0;
+               /**/
+               for(int row = -1; row<=1; row++){
+                   for(int col = -1; col<=1; col++){
+                       int currentX = x + row;
+                       int currentY = y + col;
+
+                       if(currentX >= 0 && currentX < SCREEN_WIDTH && currentY >= 0 && currentY < SCREEN_HEIGHT){
+                            Uint32 color = buffer2[currentY*SCREEN_WIDTH + currentX];
+                            /**/
+                            Uint8 red = color >>24;
+                            Uint8 blue = color >>16;
+                            Uint8 green = color >>8;
+                            /**/
+                            redTotal += red;
+                            greenTotal += green;
+                            blueTotal += blue;
+                       }
+                   }
+               }
+               Uint8 red = redTotal/9;
+               Uint8 green = greenTotal/9;
+               Uint8 blue = blueTotal/9;
+               /**/
+               setPixel(x, y, red, green, blue);
+            }
+        }
+
     }
 } /* namespace : particleScreen */
 

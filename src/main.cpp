@@ -27,13 +27,13 @@ int main(int argc, char* argv[]){
         // Update Particles
         //Draw Particles
         int elapsed = SDL_GetTicks();
-        screen.clear();
-        swarm.movexy(false);
+        //screen.clear();
+        swarm.movexy(false, elapsed);
         //
         //
-        unsigned char red = (unsigned char)( (1 + sin(elapsed*0.001))*128);
-        unsigned char green = (unsigned char)( (1 + cos(elapsed*0.002))*128);
-        unsigned char blue = (unsigned char)( (1 + sin(elapsed*0.003))*128);
+        unsigned char red = (unsigned char)( (1 + sin(elapsed*0.0001))*128);
+        unsigned char green = (unsigned char)( (1 + cos(elapsed*0.0002))*128);
+        unsigned char blue = (unsigned char)( (1 + sin(elapsed*0.0003))*128);
         //
         const particle * const pParticles = swarm.getParticles();
         //
@@ -45,7 +45,8 @@ int main(int argc, char* argv[]){
             
             /**/
             int x = (particle.getx() + 1)*Screen::SCREEN_WIDTH/2;
-            int y = (particle.gety() + 1)*Screen::SCREEN_HEIGHT/2;
+            //int y = (particle.gety() + 1)*Screen::SCREEN_HEIGHT/2;
+            int y = particle.gety()*Screen::SCREEN_WIDTH/2 + Screen::SCREEN_HEIGHT/2;  
             /**/
         
             screen.setPixel(x, y, red, green, blue);
@@ -59,6 +60,7 @@ int main(int argc, char* argv[]){
         
 
         //Draw the Screen
+        screen.blur();
         screen.update();
 
         //Check For Messages/Events

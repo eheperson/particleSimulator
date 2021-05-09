@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
         // Update Particles
         //Draw Particles
         int elapsed = SDL_GetTicks();
-        swarm.movexy(true);
+        swarm.movexy(true, elapsed);
         //
         //
         unsigned char red = (unsigned char)( (1 + sin(elapsed*0.01))*128);

@@ -10,6 +10,7 @@ namespace particleSimulator{
     /*----------------------------- Constructor and Deconstructor Methods Definitions */
     /**/
     swarm :: swarm(){
+        lastTime = 0;
         particlesPtr = new particle[swarmSize];
     };
     /**/
@@ -46,19 +47,22 @@ namespace particleSimulator{
     /**/
     /*-------------------------------------------Other Methods Definitions */
     /**/
-    void swarm :: movexy(bool border = true){
+    void swarm :: movexy(bool border, int elapsed){
+        /**/    
+        int interval = elapsed - lastTime;
         /**/
         if(border){
             for(int i = 0; i < swarmSize; i++){
-                particlesPtr[i].movexy(true);
+                particlesPtr[i].movexy(true, interval);
             }
         }
         else{
             for(int i = 0; i < swarmSize; i++){
-                particlesPtr[i].movexy(false);
+                particlesPtr[i].movexy(false, interval);
             }
         }
-
+        /**/
+        lastTime = elapsed;
     }
     /**/
 } /* namespace : particleSimulator*/

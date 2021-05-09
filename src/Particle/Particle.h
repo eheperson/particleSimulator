@@ -69,9 +69,9 @@ namespace particleSimulator{
             /**/
             /* Movement Methods Declerations*/
             /**/
-            void movexy(bool border);
-            void movex(bool border);  
-            void movey(bool border);      
+            void movexy(bool border, int interval);
+            void movex(bool border, int interval);  
+            void movey(bool border, int interval);      
             /**/
     }; /* class : particle*/
 }  /* namespace : particleSimulator*/

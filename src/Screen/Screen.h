@@ -8,8 +8,8 @@ namespace particleScreen{
     class Screen{
         
         public : 
-            const static int SCREEN_WIDTH = 1000;
-            const static int SCREEN_HEIGHT = 1000;
+            const static int SCREEN_WIDTH = 800;
+            const static int SCREEN_HEIGHT = 600;
 
         private : 
             SDL_Window* window;
@@ -17,6 +17,8 @@ namespace particleScreen{
             SDL_Texture* texture;
 
             Uint32 *buffer = NULL;
+            Uint32 *buffer2 = NULL;
+
 
         public :
 
@@ -27,6 +29,7 @@ namespace particleScreen{
             void close();
             void update();
             void clear();
+            void blur();
             void setPixel(int x, int y,  Uint8 red, Uint8 green, Uint8 blue);
 
         protected : 

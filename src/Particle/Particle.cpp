@@ -104,7 +104,7 @@ namespace particleSimulator{
     }
     /**/
     void particle :: setVRandom(){
-        V = ((0.01 * rand())/RAND_MAX);
+        V = ((0.04 * rand())/RAND_MAX);
     }
     /**/
     void particle :: setphiRandom(){
@@ -121,7 +121,6 @@ namespace particleSimulator{
         //particle :: vy = ((0.001 * rand())/RAND_MAX);
         //particle :: vy = ((2.0 * rand())/RAND_MAX) - 1;
         particle :: vy = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
-
     }
     /**/
     /*-------------------------------------------Get Methods Definitions */
@@ -193,48 +192,82 @@ namespace particleSimulator{
     };
     /*-------------------------------------------Movement Methods Definitions */
     /**/
-    void particle::movexy(bool border = true){
+    void particle::movexy(bool border, int interval){
+        setphi(phi += interval*0.0003);
+        calculatevx();
+        calculatevy();
         if(border){
-            x += getvx();
-            y += getvy();
+            x += getvx()*interval;
+            y += getvy()*interval;
             /**/
             if(x < -1.0 ||  x > 1.0){
-                vx = -vx;
+                vx = -getvx();
             };
             /**/
             if(y < -1.0 ||  y > 1.0){
-                vy = -vy;
+                vy = -getvy();
             };
+            /**/
+            // if(x < -1 || x>1 || y<-1 || y> 1){
+            //     setx(0);
+            //     sety(0);
+            //     setVRandom();
+            //     setphiRandom();
+            //     V*=V;
+            // }
+            // if(rand()< RAND_MAX/100){
+            //     setx(0);
+            //     sety(0);
+            //     setVRandom();
+            //     setphiRandom();
+            //     V*=V;
+            // }
         }
         else{
-            x += getvx();
-            y += getvy();
+            x += getvx()*interval;
+            y += getvy()*interval;
+            /**/
+            if(x < -1 || x>1 || y<-1 || y> 1){
+                setx(0);
+                sety(0);
+                setVRandom();
+                setphiRandom();
+                V*=V;
+            }
+            /**/
+            if(rand()< RAND_MAX/100){
+                setx(0);
+                sety(0);
+                setVRandom();
+                setphiRandom();
+                V*=V;
+            }
         };
     };
     /**/
-    void particle::movex(bool border = true){
+    void particle::movex(bool border, int interval){
         if(border){
-            x += getvx();
+            x += getvx()*interval;
             /**/
             if(x < -1.0 ||  x > 1.0){
-                vx = -vx;
+                vx =-getvx()*interval;
             };
         }
         else{
-            x += getvx();
+            x += getvx()*interval;
         };
     };
     /**/
-    void particle::movey(bool border = true){
+    void particle::movey(bool border, int interval){
         if(border){
-            y += getvy();
+            y += getvy()*interval;
             /**/
             if(y < -1.0 ||  y > 1.0){
-                vy = -vy;
+                vy = -getvy()*interval;
             };
         }
         else{
-            y += getvy();
+            y += getvy()*interval;
         };
     };
     /**/

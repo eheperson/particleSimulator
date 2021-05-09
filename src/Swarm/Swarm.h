@@ -7,7 +7,8 @@ namespace particleSimulator{
 
     class swarm{
         public :
-            static int const swarmSize=50000;
+            static int const swarmSize=5000;
+            int lastTime;
             /**/
         private:
             particle* particlesPtr;
@@ -34,7 +35,7 @@ namespace particleSimulator{
             /**/
             /* Other Methods Declerations*/
             /**/
-            void movexy(bool border);
+            void movexy(bool border, int elapsed);
             void movex(bool border); /* Not Declared Yet*/
             void movey(bool border); /* Not Declared Yet*/
             /**/
