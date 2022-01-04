@@ -1,10 +1,18 @@
-#
-#
-set(CMAKE_C_COMPILER "D:/apps/msys64/mingw64/bin/gcc.exe")
-set(CMAKE_CXX_COMPILER "D:/apps/msys64/mingw64/bin/g++.exe")
-#
-set(CMAKE_BUILD_TYPE "Debug")
-#
+# Change version of the cmake accorting of your   <REQUIRED>
+cmake_minimum_required(VERSION 3.21.3 FATAL_ERROR)
+
+# Do not forget update the compiler path <REQUIRED>
+# set(CMAKE_C_COMPILER "/usr/bin/gcc")
+# set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+# set(CMAKE_C_COMPILER "D:/apps/msys64/mingw64/bin/gcc.exe")
+# set(CMAKE_CXX_COMPILER "D:/apps/msys64/mingw64/bin/g++.exe")
+# add_definitions(-std=c++11)
+
+# SOME SETTINGS
+# Specify C++ standards
+# C++ standards declerations must be above the call to add_executable
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 cmake_minimum_required(VERSION 3.20.2)
 project(ehe)
 #
@@ -55,6 +63,7 @@ target_link_libraries(singlePixel PUBLIC swarm)
 #-------------- DOWNLOAD ALL THE SUBMODULES
 # first open terminal and type : 
 #   git submodule add https://github.com/libsdl-org/SDL.git libs/sdl
+#   git submodule add -f https://github.com/libsdl-org/SDL.git libs/sdl
 # second add changes to staged area (we have to stage it)
 #  
 find_package(Git QUIET)
