@@ -45,8 +45,8 @@ int main(int argc, char* argv[]){
             
             /**/
             int x = (particle.getx() + 1)*Screen::SCREEN_WIDTH/2;
-            //int y = (particle.gety() + 1)*Screen::SCREEN_HEIGHT/2;
-            int y = particle.gety()*Screen::SCREEN_WIDTH/2 + Screen::SCREEN_HEIGHT/2;  
+            int y = (particle.gety() + 1)*Screen::SCREEN_HEIGHT/2;
+            // int y = particle.gety()*Screen::SCREEN_WIDTH/2 + Screen::SCREEN_HEIGHT/2;  
             /**/
         
             screen.setPixel(x, y, red, green, blue);
