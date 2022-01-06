@@ -19,41 +19,8 @@ namespace particleSimulator{
         setVRandom();
         setphiRandom();
         /**/
-        calculatetheta();
-        calculater();
         calculatevx();
         calculatevy();
-    };
-    /**/
-    particle :: particle(std::string coordinate, 
-                        double xtheta, double yr, 
-                        double vxV, double vyphi){
-        /**/
-        if(coordinate == "cartesian"){
-            setx(xtheta);
-            sety(yr);
-            setvx(vxV);
-            setvy(vyphi);
-            /**/
-            calculatetheta();
-            calculater();
-            calculateV();
-            calculatephi();
-        }
-        else if(coordinate == "polar"){
-            settheta(xtheta);
-            setr(yr);
-            setV(vxV);
-            setphi(vyphi);
-            /**/
-            calculatex();
-            calculatey();
-            calculatevx();
-            calculatevy();
-        }
-        else{
-            std :: cout << "Undefined Coordinate System !!" << std :: endl;
-        }
     };
     /**/
     particle :: ~particle(){
@@ -71,37 +38,9 @@ namespace particleSimulator{
         particle :: y = y;
     };
     /**/
-    void particle :: setvx(double vx){
-        particle :: vx = vx;
-    };
-    /**/
-    void particle :: setvy(double vy){
-        particle :: vy = vy;
-    };
-    /**/
-    void particle :: setV(double V){
-        particle :: V = V;
-    };
-    /**/
     void particle :: setphi(double phi){
         particle :: phi = phi;
     };
-    /**/
-    void particle :: setr(double r){
-        particle :: r = r;
-    };
-    /**/
-    void particle :: settheta(double theta){
-        particle :: theta = theta;
-    };
-    /**/
-    void particle :: setxRandom(){
-        x = ((2.0 * rand())/RAND_MAX) - 1;
-    }
-    /**/
-    void particle :: setyRandom(){
-        y = ((2.0 * rand())/RAND_MAX) - 1;
-    }
     /**/
     void particle :: setVRandom(){
         V = ((0.04 * rand())/RAND_MAX);
@@ -111,27 +50,15 @@ namespace particleSimulator{
          phi = ((2.0 * M_PI * rand())/RAND_MAX);
     }
     /**/
-    void particle :: setvxRandom(){
-        //particle :: vx = ((0.001 * rand())/RAND_MAX);
-        //particle :: vx = ((2.0 * rand())/RAND_MAX) - 1;
-        particle :: vx = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
-    }
+        void particle :: setvx(double vx){
+        particle :: vx = vx;
+    };
     /**/
-    void particle :: setvyRandom(){
-        //particle :: vy = ((0.001 * rand())/RAND_MAX);
-        //particle :: vy = ((2.0 * rand())/RAND_MAX) - 1;
-        particle :: vy = 0.001*(((2.0 * rand())/RAND_MAX) - 1);
-    }
+    void particle :: setvy(double vy){
+        particle :: vy = vy;
+    };
     /**/
     /*-------------------------------------------Get Methods Definitions */
-    /**/
-    double particle :: getx(){
-        return x;
-    };
-    /**/
-    double particle::gety(){
-        return y;
-    };
     /**/
     double particle :: getvx(){
         return particle :: vx;
@@ -141,36 +68,14 @@ namespace particleSimulator{
         return particle :: vy;
     }
     /**/
-    double particle :: getV(){
-        return particle :: V;
-    }
+    double particle :: getx(){
+        return x;
+    };
     /**/
-    double particle :: getphi(){
-        return particle :: phi;
-    }
-    /**/
-    double particle :: getr(){
-        return particle :: r;
-    }
-    /**/
-    double particle :: gettheta(){
-        return particle :: theta;
-    }
-    /**/
+    double particle::gety(){
+        return y;
+    };
     /*-------------------------------------------Calculation Methods Definitions */
-    /**/
-    void particle :: calculatex(){
-        particle :: x = r*cos(theta);
-    };
-    /**/
-    void particle :: calculatey(){
-        particle :: y = r*sin(theta);
-    };
-    /**/
-    void particle :: calculateV(){
-        particle :: V = sqrt(vx*vx + vy*vy);
-    };
-    /**/
     void particle :: calculatevx(){
         particle :: vx = V*cos(phi);
     };
@@ -179,17 +84,6 @@ namespace particleSimulator{
         particle :: vy = V*sin(phi);
     };
     /**/
-    void particle :: calculatetheta(){
-        particle :: theta = atan(y/x);
-    };
-    /**/
-    void particle :: calculatephi(){
-
-    };
-    /**/
-    void particle :: calculater(){
-        particle :: r = sqrt(x*x + y*y);
-    };
     /*-------------------------------------------Movement Methods Definitions */
     /**/
     void particle::movexy(bool border, int interval){
@@ -242,32 +136,6 @@ namespace particleSimulator{
                 setphiRandom();
                 V*=V;
             }
-        };
-    };
-    /**/
-    void particle::movex(bool border, int interval){
-        if(border){
-            x += getvx()*interval;
-            /**/
-            if(x < -1.0 ||  x > 1.0){
-                vx =-getvx()*interval;
-            };
-        }
-        else{
-            x += getvx()*interval;
-        };
-    };
-    /**/
-    void particle::movey(bool border, int interval){
-        if(border){
-            y += getvy()*interval;
-            /**/
-            if(y < -1.0 ||  y > 1.0){
-                vy = -getvy()*interval;
-            };
-        }
-        else{
-            y += getvy()*interval;
         };
     };
     /**/

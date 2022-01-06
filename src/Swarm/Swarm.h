@@ -22,10 +22,7 @@ namespace particleSimulator{
             /**/
             /* Set Methods Declerations*/
             /**/
-            void setSize(int s);
             void setvxy(double v); 
-            void setvx(double vx); /* Not Declared Yet*/
-            void setvy(double vy); /* Not Declared Yet*/
             void setvRandom(); 
             /**/
             /* Get Methods Declerations*/
@@ -36,8 +33,6 @@ namespace particleSimulator{
             /* Other Methods Declerations*/
             /**/
             void movexy(bool border, int elapsed);
-            void movex(bool border); /* Not Declared Yet*/
-            void movey(bool border); /* Not Declared Yet*/
             /**/
     }; /* class : swarm*/
     /**/

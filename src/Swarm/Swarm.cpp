@@ -27,12 +27,6 @@ namespace particleSimulator{
         }
     }
     /**/
-    void swarm :: setvRandom(){
-        for(int i = 0; i <swarmSize; i++){
-            particlesPtr[i].setvxRandom();
-            particlesPtr[i].setvyRandom();
-        }
-    }
     /**/
     /*-------------------------------------------Get Methods Definitions */
     /**/
